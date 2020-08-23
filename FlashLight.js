@@ -26,7 +26,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
  * @arg drawType
  * @type string
  * @default LIGHT
- * @text Light shining.
+ * @text Light shining
  * @desc LIGHT: Lighting in the direction of forward movement TORCH: Light it up around you
  *
  * @arg radius
@@ -34,19 +34,19 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
  * @min 80
  * @max 240
  * @default 80
- * @text Radius of Light.
+ * @text Radius of Light
  * @desc Specifies the radius of a circle of light to be drawn.
  * 
  * @arg selfSwitch
  * @type string
  * @default A
- * @text Self-switch to turn on.
+ * @text Self-switch to turn on
  * @desc Specify the self-switch to be turned on when the light hits it.
  *
  * @arg ignoreEvents
  * @type number[]
  * @default []
- * @text Event ID that ignores the hit decision.
+ * @text Event ID that ignores the hit decision
  * @desc Specify an array of event IDs to ignore the hit detection with light.
  *
  * @command clear
@@ -75,7 +75,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
  * @arg drawType
  * @type string
  * @default LIGHT
- * @text 光の当て方。
+ * @text 光の当て方
  * @desc LIGHT: 前方移動方向に照らす TORCH: 自分を中心に照らす
  *
  * @arg radius
@@ -83,19 +83,19 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
  * @min 80
  * @max 240
  * @default 80
- * @text 光の半径。
+ * @text 光の半径
  * @desc 描画される円形の光の半径を指定する。
  * 
  * @arg selfSwitch
  * @type string
  * @default A
- * @text ONにするセルフスイッチ。
+ * @text ONにするセルフスイッチ
  * @desc 光が当たった時にONにするセルフスイッチを指定する。
  *
  * @arg ignoreEvents
  * @type number[]
  * @default []
- * @text 当たり判定を無視するイベントID。
+ * @text 当たり判定を無視するイベントID
  * @desc 光との当たり判定を無視するイベントIDを配列で指定する。
  *
  * @command clear
