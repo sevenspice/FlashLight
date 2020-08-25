@@ -19,7 +19,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
  * @desc Blur the boundaries of light or not. true:Yes false:No
  * @default false
  *
- * @command set
+ * @command draw
  * @text light
  * @desc Draws a light representation.
  *
