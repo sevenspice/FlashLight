@@ -291,15 +291,13 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
             gradient.addColorStop(0.0, '#ffffffff');
             gradient.addColorStop(1.0, rgbTo16(`rgb(${$gameScreen._tone.join(',')})`));
 
-            console.log(rgbTo16(`rgb(${$gameScreen._tone.join(',')})`));
-
             // 描画
             context.beginPath();
             context.arc(lightX, lightY, _lightRadius, 0, (2 * Math.PI));
             context.fillStyle = gradient;
             context.fill();
 
-            lightTexture = PIXI.Texture.fromCanvas(canvas);
+            lightTexture = PIXI.Texture.from(canvas);
             _spriteLight = new PIXI.Sprite(lightTexture);
             // フィルターの適用と表示レイヤーの指定
             _spriteLight.z = 9;

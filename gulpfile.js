@@ -11,7 +11,7 @@ gulp.task('clean', (callback) => {
 });
 
 gulp.task('bundle', (callback) => {
-    const results = exec('parcel build FlashLight.js --no-minify 3>&1 >&2 2>&3; true');
+    const results = exec('parcel build FlashLight.js --no-minify --no-source-maps 3>&1 >&2 2>&3; true');
     console.error(results.toString());
     callback();
 });
