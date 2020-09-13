@@ -1,4 +1,12 @@
 /* global PluginManager */
+/* global SceneManager  */
+/* global $gamePlayer   */
+/* global PIXI          */
+/* global Graphics      */
+/* global $gameScreen   */
+/* global $gameMap      */
+/* global $gameSelfSwitches */
+/* global Game_Player */
 //=============================================================================
 // FlashLight.js
 //=============================================================================
@@ -116,7 +124,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
     const DRAW_TYPE = {
         TORCH: Symbol(),
         LIGHT: Symbol()
-    }
+    };
 
     // 接触時にONにするスイッチ
     const SELF_SWITCH = {
@@ -124,7 +132,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
         B: 'B',
         C: 'C',
         D: 'D',
-    }
+    };
 
     // ライトがONになっているか？
     let lightOn = false;
@@ -148,9 +156,9 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
 
     // プラグイン初期化
     // コマンドパラメーターの取得
-    const parameters = PluginManager.parameters('FlashLight');
+    const parameters = PluginManager.parameters(pluginName);
     let blurBoundaries = parameters['BlurBoundaries'];
-    if(blurBoundaries == 'true') blurBoundaries = true;
+    if (blurBoundaries == 'true') blurBoundaries = true;
     else blurBoundaries = false;
 
     // ------------------------------------------
@@ -170,35 +178,35 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
     const collisionDetection = function (x1, y1, x2, y2, xc, yc, r) {
         const regionTopBottom = (_x1, _y1, _x2, _y2, _xc, _yc, _r) => {
             return ( _xc > _x1 ) && ( _xc < _x2 ) && ( _yc > (_y1 - _r) ) && ( _yc < (_y2 + r));
-        }
+        };
 
         const regionLeftRight = (_x1, _y1, _x2, _y2, _xc, _yc, _r) => {
             return ( _xc > (_x1 - _r)) && (_xc < (_x2 + r)) && ( _yc > _y1 ) && ( _yc < _y2 );
-        }
+        };
 
         const regionTopLeft = (_x1, _y1, _x2, _y2, _xc, _yc, _r) => {
             return (((( _x1 - _xc ) ** 2) + (( _y1 - _yc )) ** 2)) < (_r ** 2);
-        }
+        };
 
         const regionTopRight = (_x1, _y1, _x2, _y2, _xc, _yc, _r) => {
             return (((( _x2 - _xc ) ** 2) + (( _y1 - _yc )) ** 2)) < (_r ** 2);
-        }
+        };
 
         const regionBottomLeft = (_x1, _y1, _x2, _y2, _xc, _yc, _r) => {
             return (((( _x2 - _xc ) ** 2) + (( _y2 - _yc )) ** 2)) < (_r ** 2);
-        }
+        };
 
         const regionBottomRight = (_x1, _y1, _x2, _y2, _xc, _yc, _r) => {
             return (((( _x1 - _xc ) ** 2) + (( _y2 - _yc )) ** 2)) < (_r ** 2);
-        }
+        };
 
         return    regionTopBottom(x1, y1, x2, y2, xc, yc, r)
                || regionLeftRight(x1, y1, x2, y2, xc, yc, r)
                || regionTopLeft(x1, y1, x2, y2, xc, yc, r)
                || regionTopRight(x1, y1, x2, y2, xc, yc, r)
                || regionBottomLeft(x1, y1, x2, y2, xc, yc, r)
-               || regionBottomRight(x1, y1, x2, y2, xc, yc, r)
-    }
+               || regionBottomRight(x1, y1, x2, y2, xc, yc, r);
+    };
 
     /**
      * RGBA値を16進数文字列へ変換する。
@@ -206,8 +214,8 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
      * @return {string} 16進数へ変換した文字列。
      */
     const rgbTo16 = function(colors){
-        return "#" + colors.match(/\d+/g).map(function(a){return ("0" + parseInt(a).toString(16)).slice(-2)}).join("");
-    }
+        return '#' + colors.match(/\d+/g).map( function(a) { return ('0' + parseInt(a).toString(16)).slice(-2); } ).join('');
+    };
 
     /**
      * プレイヤーの向きに応じた光源を描画する。
@@ -223,17 +231,13 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
      */
     const lightDraw = function (_lightRadius, _drawType, _selfSwitch, _ignoreEvents, _blurBoundaries) {
         // 追加された光源を削除する
-        if(graphicLight != null) SceneManager._scene._spriteset._tilemap.removeChild(graphicLight);
-        if(spriteLight  != null) SceneManager._scene._spriteset._tilemap.removeChild(spriteLight);
-        if(lightTexture != null) lightTexture.destroy(true);
+        if (graphicLight != null) SceneManager._scene._spriteset._tilemap.removeChild(graphicLight);
+        if (spriteLight  != null) SceneManager._scene._spriteset._tilemap.removeChild(spriteLight);
+        if (lightTexture != null) lightTexture.destroy(true);
 
         // キャラクターチップのサイズ
-        const tilemap_width  = SceneManager._scene._spriteset._tilemap._tileWidth;
-        const tilemap_height = SceneManager._scene._spriteset._tilemap._tileHeight;
-
-        // ゲームプレイヤーの x 座標と y 座標を取得する
-        const x = $gamePlayer._x;
-        const y = $gamePlayer._y;
+        const tilemapWidth  = SceneManager._scene._spriteset._tilemap._tileWidth;
+        const tilemapHeight = SceneManager._scene._spriteset._tilemap._tileHeight;
 
         // ゲームプレイヤーの描画位置を取得する
         const pixelX = $gamePlayer.screenX();
@@ -246,20 +250,20 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
         if (_drawType == DRAW_TYPE.LIGHT) {
             if ($gamePlayer.direction() == DIRECTION_TOP) {
                 lightX = pixelX;
-                lightY = pixelY - ( tilemap_height + _lightRadius );
+                lightY = pixelY - ( tilemapHeight + _lightRadius );
             } else if ($gamePlayer.direction() == DIRECTION_BOTTOM) {
                 lightX = pixelX;
-                lightY = pixelY + _lightRadius + Math.floor(( tilemap_height / 2));
+                lightY = pixelY + _lightRadius + Math.floor(( tilemapHeight / 2));
             } else if ($gamePlayer.direction() == DIRECTION_RIGHT) {
-                lightX = pixelX + _lightRadius + Math.floor(( tilemap_width / 2));
-                lightY = pixelY - Math.floor(( tilemap_height / 2));
+                lightX = pixelX + _lightRadius + Math.floor(( tilemapWidth / 2));
+                lightY = pixelY - Math.floor(( tilemapHeight / 2));
             } else if ($gamePlayer.direction() == DIRECTION_LEFT) {
-                lightX = pixelX - _lightRadius - Math.floor(( tilemap_width / 2));
-                lightY = pixelY - Math.floor(( tilemap_height / 2));;
+                lightX = pixelX - _lightRadius - Math.floor(( tilemapWidth / 2));
+                lightY = pixelY - Math.floor(( tilemapHeight / 2));
             }
         } else {
             lightX = pixelX;
-            lightY = pixelY - Math.floor(( tilemap_height / 2));
+            lightY = pixelY - Math.floor(( tilemapHeight / 2));
         }
 
         // フィルター処理
@@ -322,11 +326,11 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
         // タイルマップにグラフィックを追加 (描画)
         // タイルマップに追加することで画面の色調変更の影響を抑えることができる
         // (シーンに追加すると最上レイヤーに追加されるため透過下が色調変更されている状態になり明かりが当たっている様に見えない)
-        if(_graphicLight != null ) graphicLight = SceneManager._scene._spriteset._tilemap.addChild(_graphicLight);
-        if(_spriteLight  != null ) spriteLight  = SceneManager._scene._spriteset._tilemap.addChild(_spriteLight);
+        if (_graphicLight != null ) graphicLight = SceneManager._scene._spriteset._tilemap.addChild(_graphicLight);
+        if (_spriteLight  != null ) spriteLight  = SceneManager._scene._spriteset._tilemap.addChild(_spriteLight);
 
         // イベントとの衝突判定
-        for(let i = 0; i < $gameMap._events.length; i++) {
+        for (let i = 0; i < $gameMap._events.length; i++) {
             const event = $gameMap._events[i];
             if (event) {
                 const mapId = event._mapId;
@@ -340,9 +344,9 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
                 const eventY = event.screenY();
 
                 // イベントの矩形座標を算出
-                const x1 = eventX - Math.floor(( tilemap_width / 2));
-                const y1 = eventY - tilemap_height;
-                const x2 = eventX + Math.floor(( tilemap_width / 2));
+                const x1 = eventX - Math.floor(( tilemapWidth / 2));
+                const y1 = eventY - tilemapHeight;
+                const x2 = eventX + Math.floor(( tilemapWidth / 2));
                 const y2 = eventY;
 
                 // ここで光源とのイベントの接触を判定する
@@ -356,7 +360,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
     // ------------------------------------
     // 以下はプラグインコマンド実行処理群
     // ------------------------------------
-    PluginManager.registerCommand(pluginName, "draw", function(args) {
+    PluginManager.registerCommand(pluginName, 'draw', function(args) {
         lightOn      = true;
         lightRadius  = Number(args.radius);
         if(isNaN(lightRadius)) lightRadius = 80;
@@ -366,7 +370,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
         lightDraw(lightRadius, drawType, selfSwitch, ignoreEvents, blurBoundaries);
     });
 
-    PluginManager.registerCommand(pluginName, "clear", function(args) {
+    PluginManager.registerCommand(pluginName, 'clear', function() {
         lightOn = false;
 
         // 追加された光源を削除する
@@ -399,5 +403,5 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
     Game_Player.prototype.moveByInput = function() {
         _Game_Player_prototype_moveByInput.apply(this, arguments);
         if (lightOn) lightDraw(lightRadius, drawType, selfSwitch, ignoreEvents, blurBoundaries);
-    }
+    };
 })();
