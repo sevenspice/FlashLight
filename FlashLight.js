@@ -362,11 +362,15 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
     // ------------------------------------
     PluginManager.registerCommand(pluginName, 'draw', function(args) {
         lightOn      = true;
+
         lightRadius  = Number(args.radius);
         if(isNaN(lightRadius)) lightRadius = 80;
+
         drawType     = DRAW_TYPE[args.drawType];
         selfSwitch   = SELF_SWITCH[args.selfSwitch];
         ignoreEvents = args.ignoreEvents;
+
+        // 光源描画
         lightDraw(lightRadius, drawType, selfSwitch, ignoreEvents, blurBoundaries);
     });
 
@@ -374,9 +378,9 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
         lightOn = false;
 
         // 追加された光源を削除する
-        if(graphicLight != null) SceneManager._scene._spriteset._tilemap.removeChild(graphicLight);
-        if(spriteLight  != null) SceneManager._scene._spriteset._tilemap.removeChild(spriteLight);
-        if(lightTexture != null) lightTexture.destroy(true);
+        if (graphicLight != null) SceneManager._scene._spriteset._tilemap.removeChild(graphicLight);
+        if (spriteLight  != null) SceneManager._scene._spriteset._tilemap.removeChild(spriteLight);
+        if (lightTexture != null) lightTexture.destroy(true);
 
         // セルフスイッチをすべてOFFにする
         for(let i = 0; i < $gameMap._events.length; i++) {
@@ -396,8 +400,8 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
     // 以下はツクールMVにある機能を改造する処理群
     // -------------------------------------------
     /**
-     * プレイヤーが動く際の挙動を改造する.
-     * プレイヤーを操作された際に, 光源の移動と描画を行う.
+     * プレイヤーが動く際の挙動を改造する。
+     * プレイヤーを操作された際に、光源の移動と描画を行う。
      */
     const _Game_Player_prototype_moveByInput = Game_Player.prototype.moveByInput;
     Game_Player.prototype.moveByInput = function() {
