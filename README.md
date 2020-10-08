@@ -74,7 +74,7 @@ cd FlashLight
 
 設定ファイルを編集する。
 ```
-copy mv.origin.json mv.sjon
+copy mv.origin.json mv.json
 ```
 * mv.jsonの`dest`に、インポートしたいRPGツクールMZプロジェクトのプラグインフォルダを指定すること。
 
