@@ -22,21 +22,21 @@ RPGツクールMZ用のプラグイン。
 
 前方移動方向を照らす。
 
-<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/command_example_light.png?raw=true" width="408px">
+<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/command_example_light.png?raw=true">
 
-<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/flashlight_light.gif?raw=true" width="408px">
+<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/flashlight_light.gif?raw=true">
 
 ## 松明タイプ
 
 プレイヤーを中心に照らす。
 
-<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/command_example_torch.png?raw=true" width="408px">
+<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/command_example_torch.png?raw=true">
 
-<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/flashlight_torch.gif?raw=true" width="408px">
+<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/flashlight_torch.gif?raw=true">
 
 ## 光を消す
 
-<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/command_example_off.png?raw=true" width="408px">
+<img src="https://storage.googleapis.com/aurelia-github/rpgmaker-mz/flashlight/command_example_off.png?raw=true">
 
 # 開発
 
