@@ -6,7 +6,7 @@ RPGツクールMZ用のプラグイン。
 
 # プロジェクトへのインポート方法
 1. プラグインをダウンロードする。以下のリンクをクリックすると最新のバイナリを落とせる。
-    * [FlashLight-1.0.3](https://github-storage.redspice.me/rpgmaker-mz/flashlight/FlashLight-1.0.3.zip)
+    * [FlashLight-1.0.3](https://github-storage.redspice.me/rpgmaker-mz/flashlight/FlashLight-1.0.4.zip)
 
 3. ダウンロードしたZIPファイルを展開する。
 
