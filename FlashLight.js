@@ -16,7 +16,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
 /*:
  * @target MZ
  * @plugindesc FlashLight plugin.
- * @author @BananaPepperTK
+ * @author BananaPepperTK
  *
  * @help This is a plugin to draw a circular light.
  * 
@@ -65,7 +65,7 @@ import './node_modules/@pixi/filter-adjustment/dist/filter-adjustment.js';
 /*:ja
  * @target MZ
  * @plugindesc 懐中電灯プラグイン。
- * @author @BananaPepperTK
+ * @author BananaPepperTK
  *
  * @help 円形の光を描画するプラグインです。
  *
