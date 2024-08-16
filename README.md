@@ -4,38 +4,28 @@ RPGツクールMZ用のプラグイン。
 
 プレイヤーの前方移動方向に対して円形の光表現を描画する。
 
-# プロジェクトへのインポート方法
-1. プラグインをダウンロードする。以下のリンクをクリックすると最新のバイナリを落とせる。
-    * [FlashLight-1.0.4](https://github-storage.redspice.me/rpgmaker-mz/flashlight/FlashLight-1.0.4.zip)
-
-3. ダウンロードしたZIPファイルを展開する。
-
-2. FlashLight.jsをRPGツクールMZのプロジェクトのプラグインフォルダにコピーする。
-
-3. エディタのプラグイン管理からFlashLightを読み込んでONにする。
-
-
 # コマンド
 
 ## 懐中電灯タイプ
 
 前方移動方向を照らす。
 
-<img src="https://github-storage.redspice.me/rpgmaker-mz/flashlight/command_example_light.png?raw=true">
+![command_example_light](https://github.com/user-attachments/assets/95e92f23-6b20-41b5-879d-3c5723615f3e)
 
-<img src="https://github-storage.redspice.me/rpgmaker-mz/flashlight/flashlight_light.gif?raw=true">
+![flashlight_light](https://github.com/user-attachments/assets/6c82dea9-7589-4fd0-ab13-916f9cb3642f)
 
 ## 松明タイプ
 
 プレイヤーを中心に照らす。
 
-<img src="https://github-storage.redspice.me/rpgmaker-mz/flashlight/command_example_torch.png?raw=true">
+![command_example_torch](https://github.com/user-attachments/assets/3df4a305-d5e6-41d7-bbf3-54579599fbeb)
 
-<img src="https://github-storage.redspice.me/rpgmaker-mz/flashlight/flashlight_torch.gif?raw=true">
+![flashlight_torch](https://github.com/user-attachments/assets/84d645bc-ec71-41b8-9524-8d3a71dbaabf)
+
 
 ## 光を消す
 
-<img src="https://github-storage.redspice.me/rpgmaker-mz/flashlight/command_example_off.png?raw=true">
+![command_example_off](https://github.com/user-attachments/assets/944dfb31-ef9f-470a-8136-695525c68104)
 
 # 開発
 
